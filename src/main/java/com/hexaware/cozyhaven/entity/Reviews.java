@@ -13,6 +13,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="reviews")
@@ -22,8 +25,11 @@ public class Reviews {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reviewId;
 	
+	@Min(value = 1,message = "Minimum Rating value must be 1")
+	@Max(value = 5,message = "Maximum Rating value must be 5")
 	private int rating;
 	
+	@NotNull(message = "Enter your comment,it should not be null")
 	private String comment;
 
 	

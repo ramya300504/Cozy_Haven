@@ -20,8 +20,7 @@ public interface IRoomService {
     List<Rooms> getAvailableRooms(Integer hotelId) throws InvalidHotelIdException;
     
     List<Rooms> getAcRooms(Integer hotelId) throws InvalidHotelIdException;
-    
-    List<Rooms> getRoomFare(Rooms room, int[] guestAges);
+
     
     List<Rooms> getRoomsLessThanBaseFare(double baseFare);
     

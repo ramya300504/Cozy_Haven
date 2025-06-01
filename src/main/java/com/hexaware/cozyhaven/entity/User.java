@@ -18,6 +18,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 @Entity
 @Table(name="User")
 public class User {
@@ -33,20 +37,25 @@ public class User {
 	private Integer userId;
 	
 	@Column(name = "first_name")
+	@Pattern(regexp = "^[A-Za-z]{1,30}$",message = "First Name should consist of only Letters and Spaces")
 	private String firstName;
 
 	@Column(name = "last_name")
+	@Pattern(regexp = "^[A-Za-z]{1,30}$",message = "Last Name should consist of only Letters and Spaces")
 	private String lastName;
 
-	
+	@Email(message = "Example format: ramya@gmail.com")
+	@NotNull(message = "Email Should not be Null")
 	private String email;
 
-	
+	@Size(min = 6)
+    @NotNull(message = "Password should not be null")
 	private String password;
 
 
 
 	@Column(name = "contact_number")
+	@Pattern(regexp = "^\\d{10}$",message = "Contact Number should conist od only Digits of size 10")
 	private String contactNumber;
 
 	

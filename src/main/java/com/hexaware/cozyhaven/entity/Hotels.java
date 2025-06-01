@@ -14,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="hotels")
@@ -25,13 +27,16 @@ public class Hotels {
     private Integer hotelId;
 
     @Column(name = "hotel_name")
+    @NotNull(message = "Hotel Name shoul not be null")
     private String hotelName;
 
+    @NotNull(message = "Location shoul not be null")
     private String location;
 
     private String address;
 
     @Column(name = "contact_number")
+    @Pattern(regexp = "^\\d{10}$",message = "Contact Number should conist od only Digits of size 10")
     private String contactNumber;
 
     private String description;

@@ -13,6 +13,9 @@ import com.hexaware.cozyhaven.repository.HotelsRepository;
 import com.hexaware.cozyhaven.repository.ReservationsRepository;
 import com.hexaware.cozyhaven.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AdminServiceImpl implements IAdminService {
 	
@@ -30,6 +33,8 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public User getUserById(Integer userId) throws UserNotFoundException {
 		
+		 log.info("Fetching user with ID:", userId);
+
 		
 		 return userRepository.findById(userId)
 			        .orElseThrow(() -> new UserNotFoundException());
@@ -38,6 +43,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public List<User> getallUsers() {
 		
+		log.info("Fetching all Users from database.");
 		return userRepository.getallUsers();
 		
 	}
@@ -45,12 +51,14 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public List<Reservations> getAllReservations() {
 		
+		 log.info("Fetching all Reservations");
 		return reservationsRepository.getAllReservations();
 	}
 
 	@Override
 	public Reservations getReservationById(Integer reservationId) throws InvalidReservationIdException {
 		
+		log.info("Fetching reservation with ID:", reservationId);
 		
 		Reservations reservations= reservationsRepository.findById(reservationId).orElse(null);
 		
@@ -65,18 +73,21 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public long countTotalUsers() {
 		
+		log.info("Counting total users.");
 		return userRepository.countTotalUsers();
 	}
 
 	@Override
 	public long countTotalBookings() {
 		
+		log.info("Counting total bookings.");
 		return reservationsRepository.countTotalBookings();
 	}
 
 	@Override
 	public double getTotalRevenue() {
 		
+		 log.info("Calculating total revenue.");
 		return reservationsRepository.getTotalRevenue();
 	}
 

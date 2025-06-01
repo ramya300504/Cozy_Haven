@@ -83,12 +83,14 @@ public class Reservations {
     @JsonManagedReference
     private Refund refund;
     
-    @OneToOne(mappedBy = "reservations",cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Payment payment;
+    @Column(name = "payment_id")
+    private Integer paymentId;//foreign key reference for payment microservice
     
     
-    @OneToMany(mappedBy = "reservations",cascade =CascadeType.ALL)
+    
+
+
+	@OneToMany(mappedBy = "reservations",cascade =CascadeType.ALL)
     @JsonManagedReference
     private List<Reservation_Guests> reservation_Guests =new ArrayList<>();
     
@@ -100,7 +102,7 @@ public class Reservations {
 
 	public Reservations(LocalDate checkInDate, LocalDate checkOutDate, int numberOfRooms,
 			int numberOfAdults, int numberOfChildren, double totalPrice, String status,
-			User user, Hotels hotels, Rooms rooms) {
+			User user, Hotels hotels, Rooms rooms,Integer paymentId) {
 		
 		
 		this.checkInDate = checkInDate;
@@ -113,7 +115,10 @@ public class Reservations {
 		this.user = user;
 		this.hotels = hotels;
 		this.rooms = rooms;
+		this.paymentId=paymentId;
 	}
+	
+	
 
 
 	public int getReservationId() {
@@ -130,6 +135,14 @@ public class Reservations {
 		return checkInDate;
 	}
 
+	public Integer getPaymentId() {
+		return paymentId;
+	}
+
+
+	public void setPaymentId(Integer paymentId) {
+		this.paymentId = paymentId;
+	}
 
 	public void setCheckInDate(LocalDate checkInDate) {
 		this.checkInDate = checkInDate;

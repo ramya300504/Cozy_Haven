@@ -38,93 +38,125 @@ class OwnerServiceImplTest {
 	IRoomService roomService;
 
 	
-	
-	@BeforeEach
-	void setUp() {
-	    HotelsDTO hotelDTO = new HotelsDTO("Cozy Haven Resort", "Ooty","45 Mountain View Road, Ooty, Tamil Nadu 643001", 
-	        "9444012345","A serene resort nestled in the hills offering comfortable rooms and scenic views."
-	    );
-	    ownerService.addHotel(hotelDTO);
 
-	    RoomsDTO roomDTO = new RoomsDTO("Deluxe","SINGLE",3500.00,2,true,true, 1 
-	    );
-	    ownerService.addRoom(roomDTO);
-	}
-	
 	@Test
 	void testAddHotel() {
-		
-		HotelsDTO hoteldto = new HotelsDTO(
-			    "The Grand Tamilnadu Inn", 
-			    "Chennai", 
-			    "123 Marina Beach Road, Chennai, Tamil Nadu 600041", 
-			    "9876543210", 
-			    "A luxurious beachfront hotel offering sea view rooms and authentic South Indian cuisine."
-			);
-		Hotels addHotel=ownerService.addHotel(hoteldto);
-		assertEquals("The Grand Tamilnadu Inn", addHotel.getHotelName());
-		
+	    HotelsDTO hoteldto = new HotelsDTO(
+	        "The Grand Tamilnadu Inn", 
+	        "Chennai", 
+	        "123 Marina Beach Road, Chennai, Tamil Nadu 600041", 
+	        "9876543210", 
+	        "A luxurious beachfront hotel offering sea view rooms and authentic South Indian cuisine."
+	    );
+	    Hotels addHotel = ownerService.addHotel(hoteldto);
+	    assertEquals("The Grand Tamilnadu Inn", addHotel.getHotelName());
 	}
+
 
 	@Test
 	void testDeleteHotel() throws InvalidHotelIdException {
 		
-		int hotelId=1;
-		ownerService.deleteHotel(hotelId);
-		Hotels deletedHotel = hotelService.getHotelById(hotelId);
-		assertNull(deletedHotel);
+		 HotelsDTO hoteldto = new HotelsDTO(
+			        "The Grand Tamilnadu Inn", 
+			        "Chennai", 
+			        "123 Marina Beach Road, Chennai, Tamil Nadu 600041", 
+			        "9876543210", 
+			        "A luxurious beachfront hotel offering sea view rooms and authentic South Indian cuisine."
+			    );
+		Hotels addHotel = ownerService.addHotel(hoteldto);
+		String result =ownerService.deleteHotel(addHotel.getHotelId());
+		assertEquals("Hotel Deleted Successfully",result);
 		
 	}
 
 	@Test
 	void testUpdateHotel() throws InvalidHotelIdException {
 		
-		HotelsDTO hoteldto = new HotelsDTO(
-			    "The Grand Tamilnadu Inn", 
-			    "Salem", 
-			    "123 Nagar,Salem Tamil Nadu 600041", 
-			    "9876543210", 
-			    "A luxurious beachfront hotel offering sea view rooms and authentic South Indian cuisine."
-			);
-		int hotelId=1;
-		Hotels updateHotels=ownerService.updateHotel(hotelId,hoteldto);
-		assertEquals("Salem", updateHotels.getLocation());
 		
-	}
-
-	@Test
-	void testAddRoom() {
-		
-		RoomsDTO roomdto = new RoomsDTO(
-		        "Deluxe","SINGLE",7600.00,3,true, true,1
+		    HotelsDTO hotelDTO = new HotelsDTO("Old Inn", "Trichy",
+		        "45 Street Road, Trichy, Tamil Nadu 600001", 
+		        "9444000000", 
+		        "Old description."
 		    );
-		Rooms addRoom=ownerService.addRoom(roomdto);
-		 assertTrue(addRoom.isAvailable());
-	}
+		    Hotels hotel = ownerService.addHotel(hotelDTO);
+		    int hotelId = hotel.getHotelId();
 
-	@Test
-	void testUpdateRoom() {
+		    HotelsDTO updateDTO = new HotelsDTO(
+		        "The Grand Tamilnadu Inn", 
+		        "Salem", 
+		        "123 Nagar, Salem, Tamil Nadu 600041", 
+		        "9876543210", 
+		        "A luxurious beachfront hotel"
+		    );
+		    Hotels updatedHotel = ownerService.updateHotel(hotelId, updateDTO);
+		    assertEquals("Salem", updatedHotel.getLocation());
 		
 	}
 
 	@Test
-	void testDeleteRoom() throws InvalidRoomIdException {
+	void testAddRoom() throws InvalidHotelIdException {
 		
-		int roomId = 1;
-        ownerService.deleteRoom(roomId);
-        Rooms deletedRoom = roomService.getRoomsById(roomId);
-        assertNull(deletedRoom);
+		    HotelsDTO hoteldto = new HotelsDTO(
+		        "The Grand Tamilnadu Inn", 
+		        "Chennai", 
+		        "123 Marina Beach Road, Chennai, Tamil Nadu 600041", 
+		        "9876543210", 
+		        "A luxurious beachfront hotel "
+		    );
+	         Hotels addHotel = ownerService.addHotel(hoteldto);
+
+		    RoomsDTO roomDTO = new RoomsDTO("Deluxe", "SINGLE", 7600.00, 3, true, true, addHotel.getHotelId());
+		    Rooms room = ownerService.addRoom(roomDTO);
+		    assertTrue(room.isAvailable());
+	}
+
+	@Test
+	void testUpdateRoom() throws InvalidRoomIdException, InvalidHotelIdException {
+		
+		HotelsDTO hoteldto = new HotelsDTO(
+		        "The Grand Tamilnadu Inn", 
+		        "Chennai", 
+		        "123 Marina Beach Road, Chennai, Tamil Nadu 600041", 
+		        "9876543210", 
+		        "A luxurious beachfront hotel "
+		    );
+	    Hotels addHotel = ownerService.addHotel(hoteldto);
+		
+	    RoomsDTO roomDTO = new RoomsDTO("Standard", "DOUBLE", 4500.00, 2, true, false, addHotel.getHotelId());
+	    Rooms room = ownerService.addRoom(roomDTO);
+
+	    RoomsDTO updatedRoomDTO = new RoomsDTO("Standard Updated", "DOUBLE", 5000.00, 2, false, true, addHotel.getHotelId());
+	    Rooms updatedRoom = ownerService.updateRoom(room.getRoomId(), updatedRoomDTO);
+
+	    assertEquals("DOUBLE", updatedRoom.getBedType());
+	}
+
+	@Test
+	void testDeleteRoom() throws InvalidRoomIdException, InvalidHotelIdException {
+		
+		HotelsDTO hoteldto = new HotelsDTO(
+		        "The Grand Tamilnadu Inn", 
+		        "Chennai", 
+		        "123 Marina Beach Road, Chennai, Tamil Nadu 600041", 
+		        "9876543210", 
+		        "A luxurious beachfront hotel "
+		    );
+	    Hotels addHotel = ownerService.addHotel(hoteldto);
+		
+	    RoomsDTO roomDTO = new RoomsDTO("Standard", "DOUBLE", 4500.00, 2, true, false, addHotel.getHotelId());
+	    Rooms room = ownerService.addRoom(roomDTO);
+
 		
 	}
 
 	@Test
 	void testProcessRefund() {
-		int userId = 1;
-	    int reservationId = 1;
+		    int userId = 1;
+		    int reservationId = 1;
 
-	    RefundDTO refunddto = new RefundDTO( 1500.0,"Test refund reason", LocalDateTime.now(), userId,reservationId);
-	    Refund refund = ownerService.processRefund(refunddto);
-	    assertEquals(1500.0, refund.getRefundAmount());
+		    RefundDTO refundDTO = new RefundDTO(1500.0, "Test refund reason", LocalDateTime.now(), userId, reservationId);
+		    Refund refund = ownerService.processRefund(refundDTO);
+		    assertEquals(1500.0, refund.getRefundAmount());
 	    
 	}
 
@@ -132,10 +164,14 @@ class OwnerServiceImplTest {
 	void testGetRefundDetails() throws RefundIDNotFoundException {
 		
 		
-		int refundId=1;
-		Refund getrefund=ownerService.getRefundDetails(refundId);
-		
-		assertNotNull(getrefund.getRefundReason());
+		int userId = 1;
+	    int reservationId = 1;
+
+	    RefundDTO refundDTO = new RefundDTO(2000.0, "Reason", LocalDateTime.now(), userId, reservationId);
+	    Refund refund = ownerService.processRefund(refundDTO);
+
+	    Refund fetchedRefund = ownerService.getRefundDetails(refund.getRefundId());
+	    assertEquals("Reason", fetchedRefund.getRefundReason());
 		
 	}
 

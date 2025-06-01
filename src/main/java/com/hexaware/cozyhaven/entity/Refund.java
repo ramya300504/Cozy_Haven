@@ -28,6 +28,7 @@ public class Refund {
     private double refundAmount;
 
     @Column(name="refund_reason")
+    @NotNull(message = "Refund Reason should not be null")
     private String refundReason;
 
     @Column(name = "refund_date")

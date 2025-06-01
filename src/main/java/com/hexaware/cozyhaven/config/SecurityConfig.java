@@ -61,6 +61,7 @@ public class SecurityConfig {
     			.requestMatchers("/booking/**").hasRole("USER")
     			.requestMatchers("/rooms/**").hasRole("USER")
     			.requestMatchers("/hotels/**").hasRole("USER")
+    			.requestMatchers("/user/gettotalprice/{bedType}/{baseFare}").hasRole("USER")
                 .anyRequest().authenticated().and()   
     			.sessionManagement()
     			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

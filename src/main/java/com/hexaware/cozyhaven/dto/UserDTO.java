@@ -2,7 +2,7 @@ package com.hexaware.cozyhaven.dto;
 
 public class UserDTO {
 	
-	    private Integer userId;
+	    
 	    private String firstName;
 	    private String lastName;
 	    private String email;
@@ -32,26 +32,8 @@ public class UserDTO {
 		
 		
 		
-		public UserDTO(Integer userId, String firstName, String lastName, String email, String password,
-				String contactNumber, String address, String role) {
-			super();
-			this.userId = userId;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.email = email;
-			this.password = password;
-			this.contactNumber = contactNumber;
-			this.address = address;
-			this.role = role;
-		}
 		
 		
-		public Integer getUserId() {
-			return userId;
-		}
-		public void setUserId(Integer userId) {
-			this.userId = userId;
-		}
 		public String getFirstName() {
 			return firstName;
 		}

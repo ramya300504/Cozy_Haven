@@ -80,7 +80,7 @@ class RoomServiceImplTest {
 //	}
 
 	@Test 
-	void testGetRoomsLessThanBaseFare() {
+	void testGetRoomsLessThanBaseFare() throws InvalidHotelIdException {
 		
 		HotelsDTO hoteldto = new HotelsDTO("Palm Leaf Hotel", "Mumbai", "123 Main Street", "9876543210", "Beachside hotel");
         Hotels hotel = ownerService.addHotel(hoteldto);
@@ -93,7 +93,7 @@ class RoomServiceImplTest {
 	}
 
 	@Test
-	void testGetRoomsinRange() {
+	void testGetRoomsinRange() throws InvalidHotelIdException {
 		
 		HotelsDTO hoteldto = new HotelsDTO("Palm Leaf Hotel", "Mumbai", "123 Main Street", "9876543210", "Beachside hotel");
         Hotels hotel = ownerService.addHotel(hoteldto);
@@ -109,7 +109,7 @@ class RoomServiceImplTest {
 	}
 
 	@Test
-	void testGetRoomsByBedType() throws InvalidBedTypeException {
+	void testGetRoomsByBedType() throws InvalidBedTypeException, InvalidHotelIdException {
 		
 		HotelsDTO hoteldto = new HotelsDTO("Palm Leaf Hotel", "Mumbai", "123 Main Street", "9876543210", "Beachside hotel");
         Hotels hotel = ownerService.addHotel(hoteldto);

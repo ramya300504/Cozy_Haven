@@ -9,6 +9,7 @@ import com.hexaware.cozyhaven.entity.Hotels;
 import com.hexaware.cozyhaven.entity.Refund;
 import com.hexaware.cozyhaven.entity.Rooms;
 import com.hexaware.cozyhaven.exceptions.InvalidHotelIdException;
+import com.hexaware.cozyhaven.exceptions.InvalidReservationIdException;
 import com.hexaware.cozyhaven.exceptions.InvalidRoomIdException;
 import com.hexaware.cozyhaven.exceptions.RefundIDNotFoundException;
 
@@ -19,16 +20,15 @@ public interface IOwnerService {
 	
 	String deleteHotel(Integer hotelId) throws InvalidHotelIdException;
 	
-	
-	
-	
 	Hotels updateHotel(Integer hotelId ,HotelsDTO hoteldto)throws InvalidHotelIdException;
 	
-    Rooms addRoom(RoomsDTO roomdto);
+    Rooms addRoom(RoomsDTO roomdto) throws InvalidHotelIdException;
 	
     Rooms updateRoom(Integer roomId, RoomsDTO roomdto)throws InvalidRoomIdException;
     
     String deleteRoom(Integer roomId) throws InvalidRoomIdException;
+    
+    String deleteReservation(Integer reservationId) throws InvalidReservationIdException;
 
     Refund processRefund(RefundDTO refunddto);         
 

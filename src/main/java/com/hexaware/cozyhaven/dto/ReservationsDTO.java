@@ -17,8 +17,18 @@ public class ReservationsDTO {
 	    private Integer hotelId;
 	    private Integer roomId;
 	    
+	    private Integer paymentId;
+	    
 
-	    public ReservationsDTO() {
+	    public Integer getPaymentId() {
+			return paymentId;
+		}
+
+		public void setPaymentId(Integer paymentId) {
+			this.paymentId = paymentId;
+		}
+
+		public ReservationsDTO() {
 	    }
 
 	    public ReservationsDTO(Integer reservationId, LocalDate checkInDate, LocalDate checkOutDate, int numberOfRooms,
@@ -55,6 +65,26 @@ public class ReservationsDTO {
 			this.userId = userId;
 			this.hotelId = hotelId;
 			this.roomId = roomId;
+		}
+		
+		
+
+		public ReservationsDTO(LocalDate checkInDate, LocalDate checkOutDate, int numberOfRooms,
+				int numberOfAdults, int numberOfChildren, double totalPrice, String status, Integer userId,
+				Integer hotelId, Integer roomId, Integer paymentId) {
+			super();
+			
+			this.checkInDate = checkInDate;
+			this.checkOutDate = checkOutDate;
+			this.numberOfRooms = numberOfRooms;
+			this.numberOfAdults = numberOfAdults;
+			this.numberOfChildren = numberOfChildren;
+			this.totalPrice = totalPrice;
+			this.status = status;
+			this.userId = userId;
+			this.hotelId = hotelId;
+			this.roomId = roomId;
+			this.paymentId = paymentId;
 		}
 
 		public Integer getReservationId() {

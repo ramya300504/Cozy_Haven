@@ -52,13 +52,6 @@ public class RoomServiceImpl implements IRoomService {
 		return roomsRepository.getAcRooms(hotelId);
 		
 	}
-
-	@Override
-	public List<Rooms> getRoomFare(Rooms room, int[] guestAges) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public List<Rooms> getRoomsLessThanBaseFare(double baseFare) {
 		

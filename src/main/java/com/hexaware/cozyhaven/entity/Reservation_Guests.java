@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="reservation_guests")
@@ -19,10 +20,13 @@ public class Reservation_Guests {
     private Integer guestId;
 
     @Column(name="guest_name")
+    @Pattern(regexp = "^[A-Za-z]{1-30}$",message = "Guest Name should consist of only Letters and Spaces")
     private String guestName;
 
+    @Pattern(regexp = "^//d{2}$",message = "Age must be a valid Number")
     private Integer age;
 
+    @Pattern(regexp = "FEMALE|MALE|TRANSGENDER",message = "Gender should be one of FEMALE,MALE OR TRANSGENDER")
     private String gender;
 
     @Column(name = "is_primary_guest")
@@ -49,6 +53,18 @@ public class Reservation_Guests {
 		this.isPrimaryGuest = isPrimaryGuest;
 		this.reservations = reservations;
 	}
+	
+	
+
+	public Reservation_Guests(String guestName,Integer age,String gender,boolean isPrimaryGuest) {
+		super();
+		this.guestName = guestName;
+		this.age = age;
+		this.gender = gender;
+		this.isPrimaryGuest = isPrimaryGuest;
+	}
+
+
 
 	public int getGuestId() {
 		return guestId;

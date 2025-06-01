@@ -10,8 +10,10 @@ import com.hexaware.cozyhaven.dto.RefundDTO;
 import com.hexaware.cozyhaven.dto.RoomsDTO;
 import com.hexaware.cozyhaven.entity.Hotels;
 import com.hexaware.cozyhaven.entity.Refund;
+import com.hexaware.cozyhaven.entity.Reservations;
 import com.hexaware.cozyhaven.entity.Rooms;
 import com.hexaware.cozyhaven.exceptions.InvalidHotelIdException;
+import com.hexaware.cozyhaven.exceptions.InvalidReservationIdException;
 import com.hexaware.cozyhaven.exceptions.InvalidRoomIdException;
 import com.hexaware.cozyhaven.exceptions.RefundIDNotFoundException;
 import com.hexaware.cozyhaven.repository.HotelsRepository;
@@ -82,7 +84,7 @@ public class OwnerServiceImpl implements IOwnerService {
 	}
 
 	@Override
-	public Rooms addRoom(RoomsDTO roomdto) {
+	public Rooms addRoom(RoomsDTO roomdto) throws InvalidHotelIdException {
 		
 		Rooms rooms=new Rooms();
 		
@@ -92,8 +94,10 @@ public class OwnerServiceImpl implements IOwnerService {
 		rooms.setBedType(roomdto.getBedType());
 		rooms.setMaxPersons(roomdto.getMaxPersons());
 		rooms.setRoomSize(roomdto.getRoomSize());
+		Hotels hotel = hotelsRepository.findById(roomdto.getHotelId())
+                .orElseThrow(() -> new InvalidHotelIdException());
 		
-		
+		rooms.setHotel(hotel);
 		return roomsRepository.save(rooms);
 
 	}
@@ -151,6 +155,15 @@ public class OwnerServiceImpl implements IOwnerService {
 		Refund refund=refundRepository.findById(refundId).orElseThrow(()->new RefundIDNotFoundException());
 		
 		return refundRepository.findById(refundId).orElse(null);
+	}
+
+	@Override
+	public String deleteReservation(Integer reservationId) throws InvalidReservationIdException {
+		
+		Reservations reservations=reservationsRepository.findById(reservationId).orElseThrow(()->new InvalidReservationIdException());
+		reservationsRepository.deleteById(reservationId);
+		 
+		 return "Reservation Deleted Successfully";
 	}
 
 }
